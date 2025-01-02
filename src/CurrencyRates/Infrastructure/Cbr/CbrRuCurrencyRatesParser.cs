@@ -3,6 +3,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using CurrencyRates.Domain;
+using Microsoft.Extensions.Options;
 
 namespace CurrencyRates.Infrastructure.Cbr;
 
@@ -17,7 +18,7 @@ public static class CbrRuCurrencyRatesParser
         XmlSerializer serializer = new(typeof(CbrCurrencyRates));
         if (serializer.Deserialize(reader) is not CbrCurrencyRates parsedRates)
         {
-            throw new InvalidOperationException($"Failed to parse currency rate data");
+            throw new InvalidOperationException("Failed to parse currency rate data");
         }
 
         CurrencyRatesData currencyRates = new CurrencyRatesData
