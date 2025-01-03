@@ -7,9 +7,15 @@ namespace DailyRates.Modules.MailSubscription.Infrastructure.DependencyInjection
 
 public static class ServiceCollectionExtensions
 {
+    private const string MailSubscriptionSection = "MailSubscription";
+
     public static void AddMailSubscriptionModule(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOptionsWithValidateOnStart<MailSubscriptionApiClientOptions>()
+            .Bind(configuration.GetRequiredSection(MailSubscriptionSection))
+            .ValidateDataAnnotations();
+
         services.AddScoped<CurrencyRatesMailService>();
-        services.AddScoped<IMailSubscriptionApiClient, MailSubscriptionApiClient>();
+        services.AddHttpClient<IMailSubscriptionApiClient, MailSubscriptionApiClient>();
     }
 }

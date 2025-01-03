@@ -2,7 +2,7 @@
 
     Контекст:
         Пусть пользователи подписались на обновления курсов валют:
-          | Имя               | Email                              | Currencies    |
+          | Имя               | Email                              | Коды валют    |
           | Фёдор Достоевский | fedor.dostoevsky@public.mail.local | EUR, USD, CNY |
           | Александр Раскин  | a.ruskin@company.local             | AED, BRL, INR |
 

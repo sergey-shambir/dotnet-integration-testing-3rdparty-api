@@ -2,18 +2,22 @@ using System.Collections.Specialized;
 using System.Net.Http.Json;
 using System.Web;
 using DailyRates.Modules.MailSubscription.Application;
+using Microsoft.Extensions.Options;
 
 namespace DailyRates.Modules.MailSubscription.Infrastructure.ApiClient;
 
-public class MailSubscriptionApiClient(HttpClient httpClient) : IMailSubscriptionApiClient
+public class MailSubscriptionApiClient(
+    HttpClient httpClient,
+    IOptionsSnapshot<MailSubscriptionApiClientOptions> optionsSnapshot
+) : IMailSubscriptionApiClient
 {
     public async Task AddUnconfirmedMailSubscription<TCustomData>(
         string subscriptionType,
         MailSubscriptionData<TCustomData> data
     ) where TCustomData : class
     {
-        await httpClient.PostAsJsonAsync(
-            "/mail-subscription/",
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync(
+            BuildApiUrl("/mail-subscription/"),
             new AddMailSubscriptionRequest<TCustomData>
             {
                 Type = subscriptionType,
@@ -22,32 +26,42 @@ public class MailSubscriptionApiClient(HttpClient httpClient) : IMailSubscriptio
                 CustomData = data.CustomData,
             }
         );
+        response.EnsureSuccessStatusCode();
     }
 
     public async Task<List<MailSubscriptionData<TCustomData>>> ListActiveMailSubscriptions<TCustomData>(
         string subscriptionType
     ) where TCustomData : class
     {
-        Uri uri = BuildUri("/mail-subscription/", new Dictionary<string, string>
-        {
-            { "type", subscriptionType },
-        });
+        Uri uri = BuildApiUrl(
+            "/mail-subscription/",
+            new Dictionary<string, string>
+            {
+                { "type", subscriptionType },
+            }
+        );
 
         List<MailSubscriptionData<TCustomData>>? results = await httpClient
             .GetFromJsonAsync<List<MailSubscriptionData<TCustomData>>>(uri);
         return results ?? [];
     }
 
-    private static Uri BuildUri(string urlPath, Dictionary<string, string> queryParams)
+    private Uri BuildApiUrl(string urlPath, Dictionary<string, string>? queryParams = null)
     {
+        string apiBaseUrl = optionsSnapshot.Value.ApiBaseUrl;
+
         NameValueCollection query = HttpUtility.ParseQueryString(string.Empty);
-        foreach ((string name, string value) in queryParams)
+        if (queryParams is not null)
         {
-            query.Add(name, value);
+            foreach ((string name, string value) in queryParams)
+            {
+                query.Add(name, value);
+            }
         }
 
-        UriBuilder uriBuilder = new(urlPath)
+        UriBuilder uriBuilder = new(apiBaseUrl)
         {
+            Path = urlPath,
             Query = query.ToString(),
         };
 

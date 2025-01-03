@@ -7,14 +7,17 @@ public static class MimeMessageFactory
 {
     public static MimeMessage Create(MailMessage mail)
     {
-        MailboxAddress fromAddress = new(mail.FromName, mail.FromEmail);
-        MailboxAddress toAddress = new(mail.ToName, mail.ToEmail);
-
         BodyBuilder bodyBuilder = new()
         {
             TextBody = mail.ContentPlainText,
         };
 
-        return new MimeMessage(fromAddress, toAddress, mail.Subject, bodyBuilder.ToMessageBody());
+        MimeMessage message = new();
+        message.From.Add(new MailboxAddress(mail.FromName, mail.FromEmail));
+        message.To.Add(new MailboxAddress(mail.ToName, mail.ToEmail));
+        message.Subject = mail.Subject;
+        message.Body = bodyBuilder.ToMessageBody();
+
+        return message;
     }
 }

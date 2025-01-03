@@ -32,9 +32,8 @@ public class CurrencyRatesMailService(
     /// <summary>
     ///  Отправляет письма с курсами валют.
     /// </summary>
-    public async Task SendCurrencyRatesMails()
+    public async Task SendCurrencyRatesMails(DateOnly currentDate)
     {
-        DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
         CurrencyRatesData currencyRates = await currencyRatesDataSource.LoadCurrencyRates(currentDate);
 
         List<MailSubscriptionData<CurrencyCodesList>> mailSubscriptions = await apiClient

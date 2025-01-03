@@ -8,6 +8,6 @@ public static class ServiceCollectionExtensions
 {
     public static void AddCurrencyRatesModule(this IServiceCollection services)
     {
-        services.AddScoped<ICurrencyRatesDataSource, CbrCurrencyRatesDataSource>();
+        services.AddHttpClient<ICurrencyRatesDataSource, CbrCurrencyRatesDataSource>();
     }
 }
