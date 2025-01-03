@@ -1,11 +1,9 @@
 using System.Globalization;
 using System.Text;
-using System.Xml;
 using System.Xml.Serialization;
-using CurrencyRates.Domain;
-using Microsoft.Extensions.Options;
+using DailyRates.Modules.CurrencyRates.Application;
 
-namespace CurrencyRates.Infrastructure.Cbr;
+namespace DailyRates.Modules.CurrencyRates.Infrastructure.Cbr;
 
 public static class CbrRuCurrencyRatesParser
 {

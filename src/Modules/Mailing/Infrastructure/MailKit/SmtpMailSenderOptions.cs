@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mailing.Infrastructure.MailKit;
+namespace DailyRates.Modules.Mailing.Infrastructure.MailKit;
 
 public class SmtpMailSenderOptions
 {

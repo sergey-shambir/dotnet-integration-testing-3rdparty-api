@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mailing.Application;
+namespace DailyRates.Modules.Mailing.Application;
 
 public class MailingServiceOptions
 {

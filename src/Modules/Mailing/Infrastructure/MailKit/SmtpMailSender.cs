@@ -1,10 +1,10 @@
-using Mailing.Application;
+using DailyRates.Modules.Mailing.Application;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace Mailing.Infrastructure.MailKit;
+namespace DailyRates.Modules.Mailing.Infrastructure.MailKit;
 
 public class SmtpMailSender(IOptionsSnapshot<SmtpMailSenderOptions> optionsSnapshot) : IMailSender, IAsyncDisposable
 {

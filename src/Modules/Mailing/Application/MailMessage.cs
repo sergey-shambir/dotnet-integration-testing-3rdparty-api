@@ -1,4 +1,4 @@
-namespace Mailing.Application;
+namespace DailyRates.Modules.Mailing.Application;
 
 public record MailMessage(
     string FromName,
@@ -6,5 +6,5 @@ public record MailMessage(
     string ToName,
     string ToEmail,
     string Subject,
-    string ContentHtml
+    string ContentPlainText
 );

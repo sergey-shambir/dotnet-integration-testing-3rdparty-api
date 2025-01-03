@@ -1,4 +1,4 @@
-namespace Mailing.Application;
+namespace DailyRates.Modules.Mailing.Application;
 
 public interface IMailSender
 {

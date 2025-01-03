@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 
-namespace Mailing.Application;
+namespace DailyRates.Modules.Mailing.Application;
 
 public class MailingService(
     IOptionsSnapshot<MailingServiceOptions> options,
@@ -11,7 +11,7 @@ public class MailingService(
         string toName,
         string toEmail,
         string subject,
-        string contentHtml
+        string contentPlainText
     )
     {
         MailMessage mail = new(
@@ -20,7 +20,7 @@ public class MailingService(
             ToName: toName,
             ToEmail: toEmail,
             Subject: subject,
-            ContentHtml: contentHtml
+            ContentPlainText: contentPlainText
         );
 
         return mailSender.SendEmail(mail);

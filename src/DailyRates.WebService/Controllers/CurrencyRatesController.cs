@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CurrencyRates.Controllers
+namespace DailyRates.WebService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

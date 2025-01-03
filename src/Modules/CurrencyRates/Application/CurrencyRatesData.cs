@@ -1,4 +1,4 @@
-namespace CurrencyRates.Domain;
+namespace DailyRates.Modules.CurrencyRates.Application;
 
 public class CurrencyRatesData
 {

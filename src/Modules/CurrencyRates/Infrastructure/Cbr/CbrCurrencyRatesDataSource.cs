@@ -1,10 +1,10 @@
 using System.Globalization;
-using CurrencyRates.Domain;
+using DailyRates.Modules.CurrencyRates.Application;
 
-namespace CurrencyRates.Infrastructure.Cbr;
+namespace DailyRates.Modules.CurrencyRates.Infrastructure.Cbr;
 
 /// <summary>
-///  Загружает курсы валют по данным Центробанка.
+///  Загружает курсы валют по данным Центрального Банка Российской Федерации (ЦБ РФ).
 /// </summary>
 /// l<see href="https://cbr.ru/development/SXML/"/>
 public class CbrCurrencyRatesDataSource(HttpClient httpClient) : ICurrencyRatesDataSource

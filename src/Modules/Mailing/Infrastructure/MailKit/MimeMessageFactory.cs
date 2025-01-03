@@ -1,7 +1,7 @@
-using Mailing.Application;
+using DailyRates.Modules.Mailing.Application;
 using MimeKit;
 
-namespace Mailing.Infrastructure.MailKit;
+namespace DailyRates.Modules.Mailing.Infrastructure.MailKit;
 
 public static class MimeMessageFactory
 {
@@ -12,7 +12,7 @@ public static class MimeMessageFactory
 
         BodyBuilder bodyBuilder = new()
         {
-            HtmlBody = mail.ContentHtml,
+            TextBody = mail.ContentPlainText,
         };
 
         return new MimeMessage(fromAddress, toAddress, mail.Subject, bodyBuilder.ToMessageBody());
