@@ -1,7 +1,9 @@
 using CurrencyRates.Specs.TestDoubles.Modules.CurrencyRates;
+using CurrencyRates.Specs.TestDoubles.Modules.Mailing;
 using CurrencyRates.Specs.TestDoubles.Modules.MailSubscription;
 using DailyRates.Modules.CurrencyRates.Application;
 using DailyRates.Modules.CurrencyRates.Infrastructure.Cbr;
+using DailyRates.Modules.Mailing.Application;
 using DailyRates.Modules.MailSubscription.Application;
 using DailyRates.Modules.MailSubscription.Infrastructure.ApiClient;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,7 @@ public static class ServiceCollectionExtensions
     public static void AddTestDoubles(this IServiceCollection services)
     {
         services.AddCurrencyRatesModuleTestDoubles();
+        services.AddMailingTestDoubles();
         services.AddMailSubscriptionModuleTestDoubles();
     }
 
@@ -23,6 +26,12 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<StubCbrCurrencyRatesServer>();
         services.AddHttpClient<ICurrencyRatesDataSource, CbrCurrencyRatesDataSource>(nameof(CbrCurrencyRatesDataSource))
             .AddHttpMessageHandler<StubCbrCurrencyRatesServer>();
+    }
+
+    private static void AddMailingTestDoubles(this IServiceCollection services)
+    {
+        services.AddSingleton<MockMailSender>();
+        services.AddSingleton<IMailSender>(provider => provider.GetRequiredService<MockMailSender>());
     }
 
     private static void AddMailSubscriptionModuleTestDoubles(this IServiceCollection services)

@@ -8,7 +8,7 @@ namespace DailyRates.Modules.Mailing.Infrastructure.MailKit;
 
 public class SmtpMailSender(IOptionsSnapshot<SmtpMailSenderOptions> optionsSnapshot) : IMailSender, IAsyncDisposable
 {
-    private SmtpClient? _smtpClient;
+    private SmtpClient? _smtpClient; 
 
     public async Task SendEmail(MailMessage mail, CancellationToken cancellationToken = default)
     {
@@ -25,7 +25,7 @@ public class SmtpMailSender(IOptionsSnapshot<SmtpMailSenderOptions> optionsSnaps
         SmtpClient smtpClient = new();
         await smtpClient.ConnectAsync(options.Host, options.Port, SecureSocketOptions.StartTls, cancellationToken);
 
-        if (options.Username != null && options.Password != null)
+        if (options is { Username: not null, Password: not null })
         {
             await smtpClient.AuthenticateAsync(options.Username, options.Password, cancellationToken);
         }
