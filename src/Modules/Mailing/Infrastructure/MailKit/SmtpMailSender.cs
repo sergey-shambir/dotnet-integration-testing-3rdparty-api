@@ -6,41 +6,42 @@ using MimeKit;
 
 namespace DailyRates.Modules.Mailing.Infrastructure.MailKit;
 
-public class SmtpMailSender(IOptionsSnapshot<SmtpMailSenderOptions> optionsSnapshot) : IMailSender, IAsyncDisposable
+public class SmtpMailSender(
+    IOptionsSnapshot<SmtpMailSenderOptions> optionsSnapshot,
+    ISmtpClient smtpClient
+) : IMailSender, IAsyncDisposable
 {
-    private SmtpClient? _smtpClient; 
-
     public async Task SendEmail(MailMessage mail, CancellationToken cancellationToken = default)
     {
         MimeMessage mimeMessage = MimeMessageFactory.Create(mail);
 
-        _smtpClient ??= await CreateSmtpClient(cancellationToken);
-        await _smtpClient.SendAsync(mimeMessage, cancellationToken);
+        await ConnectOnce(cancellationToken);
+        await smtpClient.SendAsync(mimeMessage, cancellationToken);
     }
 
-    private async Task<SmtpClient> CreateSmtpClient(CancellationToken cancellationToken)
+    private async Task ConnectOnce(CancellationToken cancellationToken)
     {
+        if (smtpClient.IsConnected)
+        {
+            return;
+        }
+
         SmtpMailSenderOptions options = optionsSnapshot.Value;
-
-        SmtpClient smtpClient = new();
         await smtpClient.ConnectAsync(options.Host, options.Port, SecureSocketOptions.StartTls, cancellationToken);
-
-        if (options is { Username: not null, Password: not null })
+        if (options.Username != null && options.Password != null)
         {
             await smtpClient.AuthenticateAsync(options.Username, options.Password, cancellationToken);
         }
-
-        return smtpClient;
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (_smtpClient is { IsConnected: true })
+        if (smtpClient.IsConnected)
         {
-            await _smtpClient.DisconnectAsync(true);
+            await smtpClient.DisconnectAsync(true);
         }
 
-        _smtpClient?.Dispose();
+        smtpClient.Dispose();
         GC.SuppressFinalize(this);
     }
 }

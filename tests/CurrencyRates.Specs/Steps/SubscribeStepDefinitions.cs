@@ -3,6 +3,7 @@ using CurrencyRates.Specs.Fixture;
 using CurrencyRates.Specs.TestDoubles.Modules.Mailing;
 using DailyRates.Modules.Mailing.Application;
 using Microsoft.Extensions.DependencyInjection;
+using MimeKit;
 using Reqnroll;
 using Reqnroll.Assist.Attributes;
 
@@ -13,7 +14,8 @@ public class SubscribeStepDefinitions(TestServerFixture fixture)
 {
     private readonly WebServiceDriver _driver = new(fixture.HttpClient);
 
-    private MockMailSender MockMailSender => fixture.ServiceProvider.GetRequiredService<MockMailSender>();
+    private MockSmtpClientProvider MockSmtpClientProvider =>
+        fixture.ServiceProvider.GetRequiredService<MockSmtpClientProvider>();
 
     [Given(@"пользователи подписались на обновления курсов валют:")]
     public async Task ПустьПользователиПодписалисьНаОбновленияКурсовВалют(Table table)
@@ -34,10 +36,9 @@ public class SubscribeStepDefinitions(TestServerFixture fixture)
     [Then(@"""(.*)"" получит письмо ""(.*)"" с текстом:")]
     public void ТогдаПолучитПисьмоСТекстом(string name, string mailSubject, string mailContentPlainText)
     {
-        MailMessage mailMessage = MockMailSender.FindMailByToName(name);
+        MimeMessage mailMessage = MockSmtpClientProvider.FindMailByToName(name);
         Assert.Equal(mailSubject, mailMessage.Subject);
-        Assert.Equal(mailContentPlainText.Trim(), mailMessage.ContentPlainText.Trim());
-        Assert.Equal(name, mailMessage.ToName);
+        Assert.Equal(mailContentPlainText.Trim(), mailMessage.TextBody.Trim());
         // TODO: Проверить ToEmail, FromName, FromEmail.
     }
 

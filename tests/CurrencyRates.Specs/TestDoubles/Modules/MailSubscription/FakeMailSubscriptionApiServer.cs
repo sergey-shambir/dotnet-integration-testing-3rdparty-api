@@ -21,7 +21,7 @@ public class FakeMailSubscriptionApiServer : DelegatingHandler
 
         if (request.Method == HttpMethod.Get && request.RequestUri!.AbsolutePath == "/mail-subscription/")
         {
-            return await ListMailSubscriptions(request, cancellationToken);
+            return ListMailSubscriptions(request);
         }
 
         throw new NotImplementedException(
@@ -54,10 +54,7 @@ public class FakeMailSubscriptionApiServer : DelegatingHandler
         return new HttpResponseMessage(HttpStatusCode.OK);
     }
 
-    private async Task<HttpResponseMessage> ListMailSubscriptions(
-        HttpRequestMessage request,
-        CancellationToken cancellationToken
-    )
+    private HttpResponseMessage ListMailSubscriptions(HttpRequestMessage request)
     {
         NameValueCollection query = HttpUtility.ParseQueryString(request.RequestUri!.Query);
         string type = query["type"] ?? string.Empty;

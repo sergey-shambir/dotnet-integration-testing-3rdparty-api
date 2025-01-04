@@ -1,5 +1,6 @@
 using DailyRates.Modules.Mailing.Application;
 using DailyRates.Modules.Mailing.Infrastructure.MailKit;
+using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +21,7 @@ public static class ServiceCollectionExtensions
             .Bind(configuration.GetRequiredSection(MailingSmtpSection))
             .ValidateDataAnnotations();
 
+        services.AddTransient<ISmtpClient, SmtpClient>();
         services.AddScoped<IMailSender, SmtpMailSender>();
         services.AddScoped<MailingService>();
     }
