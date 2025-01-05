@@ -1,0 +1,11 @@
+{
+  "name": "mailsubscriptionservice",
+  "version": "1.0.0",
+  "description": "Имитация смежного микросервиса на Node.js (Express)",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

@@ -1,7 +1,6 @@
 using CurrencyRates.Specs.Drivers;
 using CurrencyRates.Specs.Fixture;
 using CurrencyRates.Specs.TestDoubles.Modules.Mailing;
-using DailyRates.Modules.Mailing.Application;
 using Microsoft.Extensions.DependencyInjection;
 using MimeKit;
 using Reqnroll;
