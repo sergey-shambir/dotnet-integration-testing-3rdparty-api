@@ -38,18 +38,28 @@ public class FakeMailSubscriptionApiServer : DelegatingHandler
             request,
             cancellationToken
         );
+        MailSubscription mailSubscription = new()
+        {
+            Email = data.Email,
+            Name = data.Name,
+            CustomData = data.CustomData
+        };
+
         if (!_subscriptionsByTypeMap.TryGetValue(data.Type, out List<MailSubscription>? subscriptions))
         {
             subscriptions = [];
             _subscriptionsByTypeMap[data.Type] = subscriptions;
         }
 
-        subscriptions.Add(new MailSubscription
+        int index = subscriptions.FindIndex(subscription => subscription.Email == data.Email);
+        if (index >= 0)
         {
-            Email = data.Email,
-            Name = data.Name,
-            CustomData = data.CustomData
-        });
+            subscriptions[index] = mailSubscription;
+        }
+        else
+        {
+            subscriptions.Add(mailSubscription);
+        }
 
         return new HttpResponseMessage(HttpStatusCode.OK);
     }

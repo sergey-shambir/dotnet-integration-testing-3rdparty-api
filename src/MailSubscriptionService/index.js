@@ -44,7 +44,7 @@ const store = function () {
          */
         addMailSubscription: function(type, mailSubscription) {
             mailSubscriptions = mailSubscriptionsByType[type] || []
-            const index = mailSubscriptions.findIndex((data) => data.name == mailSubscription.name)
+            const index = mailSubscriptions.findIndex((data) => data.email == mailSubscription.email)
             if (index != -1) {
                 mailSubscriptions[index] = mailSubscription
             } else {
