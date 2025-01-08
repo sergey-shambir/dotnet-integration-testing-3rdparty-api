@@ -1,0 +1,18 @@
+
+POST http://127.0.0.1:5219/api/currency-rates/subscribe
+Content-Type: application/json
+
+{
+    "name": "Сергей Шамбир",
+    "email": "sergey.shambir@yandex.ru",
+    "currencyCodes": ["AED", "BRL", "INR"]
+}
+
+### 
+
+POST http://127.0.0.1:5219/api/currency-rates/send-mails
+Content-Type: application/json
+
+{
+     "currentDate": "2024-01-08"
+}

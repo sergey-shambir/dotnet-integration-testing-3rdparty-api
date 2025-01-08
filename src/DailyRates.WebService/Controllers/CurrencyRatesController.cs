@@ -36,6 +36,7 @@ public class CurrencyRatesController(
         public string Email { get; init; } = null!;
 
         [Required]
+        [MinLength(1)]
         public List<string> CurrencyCodes { get; init; } = [];
     }
 
