@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Web;
 
-namespace CurrencyRates.Specs.TestDoubles.Modules.MailSubscription;
+namespace DailyRates.Specs.TestDoubles.Modules.MailSubscription;
 
 public class FakeMailSubscriptionApiServer : DelegatingHandler
 {

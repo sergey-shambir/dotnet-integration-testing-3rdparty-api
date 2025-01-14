@@ -4,7 +4,7 @@ using MailKit.Security;
 using MimeKit;
 using Moq;
 
-namespace CurrencyRates.Specs.TestDoubles.Modules.Mailing;
+namespace DailyRates.Specs.TestDoubles.Modules.Mailing;
 
 public class MockSmtpClientProvider
 {

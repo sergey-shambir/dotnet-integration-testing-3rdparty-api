@@ -2,9 +2,9 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Net;
 using System.Web;
-using CurrencyRates.Specs.Data;
+using DailyRates.Specs.Data;
 
-namespace CurrencyRates.Specs.TestDoubles.Modules.CurrencyRates;
+namespace DailyRates.Specs.TestDoubles.Modules.CurrencyRates;
 
 public class StubCbrCurrencyRatesServer : DelegatingHandler
 {

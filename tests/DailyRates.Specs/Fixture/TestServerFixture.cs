@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Testing;
-
-namespace CurrencyRates.Specs.Fixture;
+namespace DailyRates.Specs.Fixture;
 
 public class TestServerFixture : IDisposable
 {

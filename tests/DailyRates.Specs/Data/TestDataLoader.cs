@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace CurrencyRates.Specs.Data;
+namespace DailyRates.Specs.Data;
 
 public static class TestDataLoader
 {

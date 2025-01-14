@@ -1,12 +1,11 @@
-using CurrencyRates.Specs.TestDoubles;
+using DailyRates.Specs.TestDoubles;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 
-namespace CurrencyRates.Specs.Fixture;
+namespace DailyRates.Specs.Fixture;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
@@ -21,6 +20,4 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             );
         });
     }
-    
-    
 }

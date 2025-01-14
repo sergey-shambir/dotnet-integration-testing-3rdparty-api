@@ -1,12 +1,13 @@
-using CurrencyRates.Specs.Drivers;
-using CurrencyRates.Specs.Fixture;
-using CurrencyRates.Specs.TestDoubles.Modules.Mailing;
+using DailyRates.Specs.Drivers;
+using DailyRates.Specs.Fixture;
+using DailyRates.Specs.TestDoubles.Modules.Mailing;
 using Microsoft.Extensions.DependencyInjection;
 using MimeKit;
 using Reqnroll;
 using Reqnroll.Assist.Attributes;
+using Xunit;
 
-namespace CurrencyRates.Specs.Steps;
+namespace DailyRates.Specs.Steps;
 
 [Binding]
 public class SubscribeStepDefinitions(TestServerFixture fixture)
@@ -38,7 +39,6 @@ public class SubscribeStepDefinitions(TestServerFixture fixture)
         MimeMessage mailMessage = MockSmtpClientProvider.FindMailByToName(name);
         Assert.Equal(mailSubject, mailMessage.Subject);
         Assert.Equal(mailContentPlainText.Trim(), mailMessage.TextBody.Trim());
-        // TODO: Проверить ToEmail, FromName, FromEmail.
     }
 
     private class SubscribeRequest

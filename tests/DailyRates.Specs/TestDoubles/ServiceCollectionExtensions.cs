@@ -1,19 +1,17 @@
-using CurrencyRates.Specs.TestDoubles.Modules.CurrencyRates;
-using CurrencyRates.Specs.TestDoubles.Modules.Mailing;
-using CurrencyRates.Specs.TestDoubles.Modules.MailSubscription;
 using DailyRates.Modules.CurrencyRates.Application;
 using DailyRates.Modules.CurrencyRates.Infrastructure.Cbr;
 using DailyRates.Modules.MailSubscription.Application;
 using DailyRates.Modules.MailSubscription.Infrastructure.ApiClient;
+using DailyRates.Specs.TestDoubles.Modules.CurrencyRates;
+using DailyRates.Specs.TestDoubles.Modules.Mailing;
+using DailyRates.Specs.TestDoubles.Modules.MailSubscription;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CurrencyRates.Specs.TestDoubles;
+namespace DailyRates.Specs.TestDoubles;
 
 public static class ServiceCollectionExtensions
 {
-    private const string MailSubscriptionApiClient = "MailSubscriptionService";
-
     public static void AddTestDoubles(this IServiceCollection services)
     {
         services.AddCurrencyRatesModuleTestDoubles();

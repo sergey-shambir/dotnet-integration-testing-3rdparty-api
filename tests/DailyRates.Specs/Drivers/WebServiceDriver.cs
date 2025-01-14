@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
 
-namespace CurrencyRates.Specs.Drivers;
+namespace DailyRates.Specs.Drivers;
 
 public class WebServiceDriver(HttpClient httpClient)
 {
